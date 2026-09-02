@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Request = require('../models/Request');
+const auth = require('../middleware/auth');
 
-// GET all requests
-router.get('/', async (req, res) => {
+// GET all requests (Protected for Admins only)
+router.get('/', auth, async (req, res) => {
   const requests = await Request.find();
   res.json(requests);
 });

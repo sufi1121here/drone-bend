@@ -15,5 +15,5 @@ const requestSchema = new mongoose.Schema({
   },
   longitude: Number,
   latitude: Number
-});
+}, { timestamps: true });
 module.exports = mongoose.model('Request', requestSchema);
