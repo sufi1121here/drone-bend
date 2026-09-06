@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const requestRoutes = require('./routes/requestRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const droneRoutes = require('./routes/droneRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
 // routes
 app.use('/api/drone-requests', requestRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/drones', droneRoutes);
 
 app.listen( process.env.PORT, '0.0.0.0', () => {
   console.log(`Server running on http://0.0.0.0:${process.env.PORT}`);
