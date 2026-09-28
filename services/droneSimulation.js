@@ -4,9 +4,9 @@ const BASE_STATION = { lat: 24.8086, lng: 67.1209 };
 const DRONE_SPEED = 0.00015; // Simulated speed (degrees per second)
 
 const drones = [
-  { id: 'Alpha-1', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null },
-  { id: 'Bravo-2', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null },
-  { id: 'Charlie-3', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null }
+  { id: 'Alpha-1', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null, battery: 100 },
+  { id: 'Bravo-2', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null, battery: 100 },
+  { id: 'Charlie-3', status: 'Idle', location: { ...BASE_STATION }, destination: null, targetRequest: null, battery: 100 }
 ];
 
 const dispatchDrone = (requestId, destLat, destLng) => {
@@ -64,6 +64,15 @@ setInterval(() => {
         drone.location.lat += dLat * ratio;
         drone.location.lng += dLng * ratio;
       }
+    }
+
+    // Battery simulation
+    if (drone.status === 'Idle') {
+      if (drone.battery < 100) {
+        drone.battery = Math.min(100, drone.battery + 2.5); // Fast charge at base
+      }
+    } else {
+      drone.battery = Math.max(0, drone.battery - 0.5); // Drain while flying
     }
   });
 }, 1000);
